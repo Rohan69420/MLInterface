@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+ <!-- Head-->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Simple Linear Regression</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+	 <!-- End of Head-->
+	 
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-dark bg-dark static-top">
+            <div class="container">
+                <a class="navbar-brand" href="#!">Demo</a>
+                <a class="navbar-brand" href="#about">About</a>
+            </div>
+        </nav>
+        <!-- Masthead-->
+      
+            <div class="container position-relative">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6">
+                        <div class="center-header">
+                            <!-- Page heading-->
+							<div class="form-group mx-sm-3 mb-2">
+                            <h4 class="mb-5 top-header">Enter a Budget amount </h4>
+							</div>
+						  <div class="form-inline" id="frm">
+						<div class="form-group mx-sm-3 mb-2">
+							<label for="budgetamount" class="sr-only">Budget Amount</label>
+							  <input type="number" class="form-control form-control-md input-budget" id="budgetamount" required  placeholder="Budget Amount" >
+							 <button  class="btn btn-primary " onclick='fillItem()'  >Predict</button>
+							</div>
+
+							  
+						</div>
+                    </div>
+                </div>
+            </div>
+        
+        <!-- Icons Grid-->
+        <section class="features-icons bg-light text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon d-digits"><i class="window m-auto text-primary"></i></div>
+                            <h3>Budget Amount</h3>
+                            <p class="lead mb-0">Budget amount provided!</p>
+							<h3 id='sectionBudget'>
+							
+							</h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon d-flex"><i class="layers m-auto text-primary"></i></div>
+                            <h3>Predicted Value</h3>
+                            <p class="lead mb-0">Predicted Sales Amount!</p>
+							<h3 id='sectionPredicted'>
+
+							</h3>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="features-icons-item mx-auto mb-0 mb-lg-3">
+                            <div class="features-icons-icon d-flex"><i class="terminal m-auto text-primary"></i></div>
+                            <h3>Easy to Use</h3>
+                            <p class="lead mb-0">Ready to use with your own content!</p>
+							<h3 id='sectionAPI'>
+							</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Image Showcases-->
+ <!-- Icons Grid-->
+       
+		<div class="container">
+			<div class="row">
+			 <div class="col-md-6 offset-3 ">
+			<table class="table table-sm table-striped table-hover" id="dataTable">
+			<caption>Data used for Model</caption>
+			  <thead>
+				<tr>
+				  <th scope="col">Budget</th>
+				  <th scope="col">Sales</th>
+				</tr>
+			  </thead>
+			  <tbody  id="tbodyid">
+				<tr>
+
+				</tr>
+			  </tbody>
+			</table>
+			</div>
+		 </div>
+         </div>
+      
+      
+        <!-- Footer-->
+        <footer class="footer bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+   
+                        <p class="text-muted small mb-4 mb-lg-0">&copy; For test only.</p>
+                    </div>
+                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-4">
+                                <a href="#!"><i class="A"></i></a>
+                            </li>
+                            <li class="list-inline-item me-4">
+                                <a href="#!"><i class="B"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#!"><i class="C"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+		<script>	
+
+			    let fillItem = () => {
+					  
+					  if (!$('#budgetamount').val()){
+					  //set border color to the input
+						$('#budgetamount').attr('style', "border-radius: 5px; border:#FF0000 1px solid;");
+						//alert("Please enter a value");
+					  } else{
+						//Remove previous value
+						document.getElementById("sectionBudget").innerHTML = "";
+						document.getElementById("sectionPredicted").innerHTML = "";
+						document.getElementById("sectionAPI").innerHTML = "";
+						//get values plus set section values...
+						var prodivedBudget = $("#budgetamount").val();
+						let budgetElement = document.getElementById('sectionBudget');
+						budgetElement.innerHTML += prodivedBudget + "K";
+						//ajax call to get predicted value
+						$.ajax({
+							type:"GET",
+							dataType: "json",
+							crossDomain: true,
+							//api url with parameter
+							url: "https://linear-regression-rohan69420.herokuapp.com/prediction/" + prodivedBudget,
+							success: function(data){
+								console.log(data);	
+								let predictedElement = document.getElementById('sectionPredicted');
+								predictedElement.innerHTML += data + "M";
+					
+							}
+							})
+						//set 3rd div value
+						let sectionAPIElement = document.getElementById('sectionAPI');
+						sectionAPIElement.innerHTML += "Flask API Call";
+						
+					  }
+					  //get dataframe from api
+					  $.ajax({
+							type:"GET",
+							dataType: "json",
+							data:{},
+							
+							url: "https://linear-regression-rohan69420.herokuapp.com/api",
+							crossDomain: true,
+							success: function(data){
+								//console.log(data);
+								var parsedJson = $.parseJSON(data);
+								$.each(parsedJson,function(index,value){ 
+								   console.log( value.sale);
+								});
+								//
+								$("#tbodyid").empty();
+								var rows = [];
+								$.each(parsedJson,function(index,value) {
+									rows.push('<tr><td>'+value.budget+'</td><td>'+value.sale+'</td></tr>');
+								});
+								$('table').append(rows.join(''));
+							
+							}
+						})
+
+				}
+
+		</script>
+
+    </body>
+</html>
